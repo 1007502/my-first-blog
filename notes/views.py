@@ -65,14 +65,14 @@ def delete_note2(request, note_id):
         note.delete()
         notes = Note.objects.filter(user=request.user)
         tasks = Task.objects.filter(user=request.user)
-        food_balance =  Expense.objects.filter(catogory__iexact='food').aggregate(Sum('amount'))['amount__sum']
-        social_balance =  Expense.objects.filter(catogory__iexact='social life').aggregate(Sum('amount'))['amount__sum']
-        transport_balance =  Expense.objects.filter(catogory__iexact='transportation').aggregate(Sum('amount'))['amount__sum']
-        household_balance =  Expense.objects.filter(catogory__iexact='household').aggregate(Sum('amount'))['amount__sum']
-        culture_balance =  Expense.objects.filter(catogory__iexact='culture').aggregate(Sum('amount'))['amount__sum']
-        other_balance =  Expense.objects.filter(catogory__iexact='other').aggregate(Sum('amount'))['amount__sum']
-        income_total = Income.objects.aggregate(Sum('amount'))['amount__sum']
-        expense_total = Expense.objects.aggregate(Sum('amount'))['amount__sum']
+        food_balance =  Expense.objects.filter(user=request.user, catogory__iexact='food').aggregate(Sum('amount'))['amount__sum']
+        social_balance =  Expense.objects.filter(user=request.user, catogory__iexact='social life').aggregate(Sum('amount'))['amount__sum']
+        transport_balance =  Expense.objects.filter(user=request.user, catogory__iexact='transportation').aggregate(Sum('amount'))['amount__sum']
+        household_balance =  Expense.objects.filter(user=request.user, catogory__iexact='household').aggregate(Sum('amount'))['amount__sum']
+        culture_balance =  Expense.objects.filter(user=request.user, catogory__iexact='culture').aggregate(Sum('amount'))['amount__sum']
+        other_balance =  Expense.objects.filter(user=request.user, catogory__iexact='other').aggregate(Sum('amount'))['amount__sum']
+        income_total = Income.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum']
+        expense_total = Expense.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum']
         if expense_total is None:
             expense_total = 0.00
         if income_total is None:
